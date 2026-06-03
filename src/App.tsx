@@ -157,7 +157,7 @@ const TRANSLATIONS = {
       successTitle: "Richiesta Inviata!",
       successDesc: "Ti ricontatteremo a breve.",
       footerNote: "Verrai reindirizzato al pagamento sicuro.",
-      totalPrice: "Totale (50€/pers):"
+      totalPrice: "Totale (40€/pers):"
     }
   },
   EN: {
@@ -234,7 +234,7 @@ const TRANSLATIONS = {
       successTitle: "Request Sent!",
       successDesc: "We will contact you shortly.",
       footerNote: "You'll be redirected to secure payment.",
-      totalPrice: "Total (50€/pers):"
+      totalPrice: "Total (40€/pers):"
     }
   },
   DE: {
@@ -311,7 +311,7 @@ const TRANSLATIONS = {
       successTitle: "Anfrage Gesendet!",
       successDesc: "Wir werden uns in Kürze bei Ihnen melden.",
       footerNote: "Sie werden zur sicheren Zahlung weitergeleitet.",
-      totalPrice: "Gesamt (50€/Pers):"
+      totalPrice: "Gesamt (40€/Pers):"
     }
   }
 };
@@ -852,7 +852,7 @@ export default function App() {
                           {T.modal.totalPrice}
                         </span>
                         <div className="text-xl md:text-2xl font-serif text-brand-contrast">
-                          € {parseInt(formData.guests || "1") * 50},00
+                          € {parseInt(formData.guests || "1") * 40},00
                         </div>
                       </div>
 

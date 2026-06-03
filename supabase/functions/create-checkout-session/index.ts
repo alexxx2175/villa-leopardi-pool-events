@@ -30,7 +30,7 @@ Deno.serve(async (req) => {
               name: `Sunset Table - ${guests} Ospiti`,
               description: `Prenotazione a nome di ${name} per l'evento Sunset Table presso Villa Leopardi.`,
             },
-            unit_amount: 5000, // 50€
+            unit_amount: 4000, // 40€
           },
           quantity: parseInt(guests || '1'),
         },
