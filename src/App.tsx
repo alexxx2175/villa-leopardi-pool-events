@@ -24,10 +24,10 @@ import { Camera, Calendar, MapPin, Music, Sunset, Star, ChevronDown, Mail, Phone
 
 const IMAGES = {
   hero: "/hero.png",
-  aperitivo: "/gallery2.jpg",
+  aperitivo: "/gallery4.png",
   poolSide: "/gallery1.jpg",
-  villa: "/gallery3.jpg",
-  party: "/gallery4.png",
+  villa: "/gallery2.jpg",
+  party: "/gallery3.jpg",
   paese: "/piscinatramnoto_opt.webp",
 };
 
