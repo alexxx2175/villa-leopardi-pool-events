@@ -23,12 +23,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { Camera, Calendar, MapPin, Music, Sunset, Star, ChevronDown, Mail, Phone, Users, X, Globe, Lock } from "lucide-react";
 
 const IMAGES = {
-  hero: "/piscinatramnoto_opt.webp",
-  aperitivo: "/aperitivo_real_opt.webp",
-  poolSide: "/poolside_opt.webp",
-  villa: "/villa_opt.webp",
-  party: "/party_opt.webp",
-  paese: "/paese_opt.webp",
+  hero: "/hero.png",
+  aperitivo: "/gallery2.jpg",
+  poolSide: "/gallery1.jpg",
+  villa: "/gallery3.jpg",
+  party: "/gallery4.png",
+  paese: "/piscinatramnoto_opt.webp",
 };
 
 type Language = "IT" | "EN" | "DE";
