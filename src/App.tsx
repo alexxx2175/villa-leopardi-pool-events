@@ -23,12 +23,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { Camera, Calendar, MapPin, Music, Sunset, Star, ChevronDown, Mail, Phone, Users, X, Globe, Lock } from "lucide-react";
 
 const IMAGES = {
-  hero: "piscinatramnoto_opt.webp",
-  aperitivo: "aperitivo_real_opt.webp",
-  poolSide: "poolside_opt.webp",
-  villa: "villa_opt.webp",
-  party: "party_opt.webp",
-  paese: "paese_opt.webp",
+  hero: "/piscinatramnoto_opt.webp",
+  aperitivo: "/aperitivo_real_opt.webp",
+  poolSide: "/poolside_opt.webp",
+  villa: "/villa_opt.webp",
+  party: "/party_opt.webp",
+  paese: "/paese_opt.webp",
 };
 
 type Language = "IT" | "EN" | "DE";
@@ -449,7 +449,7 @@ export default function App() {
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-3 md:px-6 py-4 bg-transparent">
         <a href="/" className="flex items-center">
           <img 
-            src="Logo.png" 
+            src="/Logo.png"
             alt="Villa Leopardi" 
             className="h-8 md:h-12 w-auto object-contain transition-opacity duration-300 hover:opacity-85"
           />
