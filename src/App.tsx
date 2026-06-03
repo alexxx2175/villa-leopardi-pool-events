@@ -25,10 +25,10 @@ import { Camera, Calendar, MapPin, Music, Sunset, Star, ChevronDown, Mail, Phone
 const IMAGES = {
   hero: "/hero.png",
   aperitivo: "/gallery4.png",
-  poolSide: "/gallery1.jpg",
-  villa: "/gallery2.jpg",
-  party: "/gallery3.jpg",
-  paese: "/piscinatramnoto_opt.webp",
+  poolSide: "/gallery_topright.jpg",
+  villa: "/gallery_bottomleft.jpg",
+  party: "/gallery_bottomright.jpg",
+  paese: "/gallery_topleft.jpg",
 };
 
 type Language = "IT" | "EN" | "DE";
