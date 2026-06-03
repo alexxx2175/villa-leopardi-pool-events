@@ -1,0 +1,8 @@
+{
+  "name": "Villa Leopardi - Pool Events",
+  "description": "Luxury landing page for exclusive pool party events at Villa Leopardi 5-star S. Elegant design, photo gallery, and reservation details.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
