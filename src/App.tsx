@@ -75,7 +75,7 @@ function VLMonogram({ isDarkBg = false, size = "md" }: { isDarkBg?: boolean, siz
     : "w-12 h-12 text-base";
 
   return (
-    <div className={`rounded-full border flex items-center justify-center font-serif leading-none select-none shrink-0 ${textColor} ${containerClasses}`}>
+    <div className={`border flex items-center justify-center font-serif leading-none select-none shrink-0 ${textColor} ${containerClasses}`}>
       <span className="relative -translate-x-[2px] -translate-y-[1px]">V</span>
       <span className="relative translate-x-[2px] translate-y-[2px] italic font-semibold">L</span>
     </div>
@@ -464,7 +464,7 @@ export default function App() {
           <div className="relative z-50">
             <button 
               onClick={() => setIsLangMenuOpen(!isLangMenuOpen)}
-              className="flex items-center gap-1 md:gap-1.5 px-2 py-1 md:px-3 md:py-1.5 text-[9px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary/10 transition-all rounded-sm"
+              className="flex items-center gap-1 md:gap-1.5 px-2 py-1 md:px-3 md:py-1.5 text-[9px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary/10 transition-all"
             >
               <Globe size={10} className="md:w-3 md:h-3 opacity-90" />
               {lang}
@@ -476,7 +476,7 @@ export default function App() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: 10 }}
-                  className="absolute right-0 mt-2 bg-brand-neutral border border-brand-accent/40 shadow-2xl overflow-hidden rounded-sm min-w-[120px]"
+                  className="absolute right-0 mt-2 bg-brand-neutral border border-brand-accent/40 shadow-2xl overflow-hidden min-w-[120px]"
                 >
                   {(["IT", "EN", "DE"] as Language[]).map((l) => (
                     <button
@@ -494,7 +494,7 @@ export default function App() {
 
           <button 
             onClick={() => setIsBookingOpen(true)}
-            className="px-3 py-1 md:px-5 md:py-2 text-[8px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary hover:text-brand-contrast transition-all duration-300 rounded-sm whitespace-nowrap"
+            className="px-3 py-1 md:px-5 md:py-2 text-[8px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary hover:text-brand-contrast transition-all duration-300 whitespace-nowrap"
           >
             {T.nav.reservations}
           </button>
@@ -564,7 +564,7 @@ export default function App() {
             </div>
 
             {/* Menu Section */}
-            <div className="mt-10 md:mt-12 p-6 md:p-8 bg-brand-accent/20 border border-brand-accent/60 rounded-[12px]">
+            <div className="mt-10 md:mt-12 p-6 md:p-8 bg-brand-accent/20 border border-brand-accent/60">
               <h3 className="text-xs uppercase tracking-[0.3em] font-bold mb-6 text-brand-contrast">{T.about.menuTitle} <span className="font-signature normal-case tracking-normal text-xl">{T.about.menuSerata}</span>:</h3>
               <ul className="space-y-4 text-brand-contrast/80">
                 {T.about.menuItems.map((item, i) => (
@@ -583,7 +583,7 @@ export default function App() {
             transition={{ duration: 1 }}
             className="relative"
           >
-            <div className="aspect-[4/5] overflow-hidden border-[12px] border-brand-accent/40 rounded-[12px] shadow-2xl rotate-2">
+            <div className="aspect-[4/5] overflow-hidden border-[12px] border-brand-accent/40 shadow-2xl rotate-2">
               <img 
                 src={IMAGES.aperitivo} 
                 alt="Luxury Aperitivo" 
@@ -591,7 +591,7 @@ export default function App() {
                 referrerPolicy="no-referrer"
               />
             </div>
-            <div className="absolute -bottom-6 -left-6 bg-brand-primary p-8 text-brand-contrast w-52 shadow-xl rounded-[12px] border border-brand-accent/30 hidden md:block -rotate-3">
+            <div className="absolute -bottom-6 -left-6 bg-brand-primary p-8 text-brand-contrast w-52 shadow-xl border border-brand-accent/30 hidden md:block -rotate-3">
               <div className="flex gap-0.5 items-center mb-4 select-none text-brand-contrast">
                 {[1, 2, 3, 4].map((s) => (
                   <Star key={s} size={10} className="text-brand-contrast fill-brand-contrast stroke-none" />
@@ -649,16 +649,16 @@ export default function App() {
             viewport={{ once: true }}
             className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6"
           >
-            <motion.div variants={fadeInUp} className="md:col-span-8 h-[250px] md:h-[500px] overflow-hidden rounded-[12px] shadow-md border border-brand-accent/30">
+            <motion.div variants={fadeInUp} className="md:col-span-8 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
               <img src={IMAGES.paese} alt="Lake Garda Village" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" referrerPolicy="no-referrer" />
             </motion.div>
-            <motion.div variants={fadeInUp} className="md:col-span-4 h-[250px] md:h-[500px] overflow-hidden rounded-[12px] shadow-md border border-brand-accent/30">
+            <motion.div variants={fadeInUp} className="md:col-span-4 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
               <img src={IMAGES.poolSide} alt="Pool Side" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
             </motion.div>
-            <motion.div variants={fadeInUp} className="md:col-span-4 h-[250px] md:h-[500px] overflow-hidden rounded-[12px] shadow-md border border-brand-accent/30">
+            <motion.div variants={fadeInUp} className="md:col-span-4 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
               <img src={IMAGES.villa} alt="Villa" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
             </motion.div>
-            <motion.div variants={fadeInUp} className="md:col-span-8 h-[250px] md:h-[500px] overflow-hidden rounded-[12px] shadow-md border border-brand-accent/30">
+            <motion.div variants={fadeInUp} className="md:col-span-8 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
               <img src={IMAGES.party} alt="Night Atmosphere" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
             </motion.div>
           </motion.div>
@@ -679,7 +679,7 @@ export default function App() {
               {T.bookingSection.slots.map((slot, i) => {
                 const IconComponent = [Calendar, MapPin, Star][i];
                 return (
-                  <div key={i} className="p-4 md:p-6 border border-brand-accent/60 bg-brand-neutral/40 rounded-[12px] hover:bg-brand-neutral/80 transition-all duration-300 shadow-sm">
+                  <div key={i} className="p-4 md:p-6 border border-brand-accent/60 bg-brand-neutral/40 hover:bg-brand-neutral/80 transition-all duration-300 shadow-sm">
                     {IconComponent && (
                       <IconComponent className="mx-auto mb-2 md:mb-3 text-brand-primary" size={18} />
                     )}
@@ -697,7 +697,7 @@ export default function App() {
             <div className="flex justify-center items-center">
               <button 
                 onClick={() => setIsBookingOpen(true)}
-                className="bg-brand-contrast text-brand-neutral px-12 py-5 text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-primary hover:text-brand-contrast rounded-[8px] transition-all duration-500 shadow-xl w-full sm:w-auto"
+                className="bg-brand-contrast text-brand-neutral px-12 py-5 text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-primary hover:text-brand-contrast transition-all duration-500 shadow-xl w-full sm:w-auto"
               >
                 {T.bookingSection.btnPrimary}
               </button>
@@ -752,7 +752,7 @@ export default function App() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative bg-brand-neutral w-full max-w-lg p-5 md:p-10 shadow-2xl border border-brand-accent/30 rounded-[16px] overflow-hidden max-h-[95vh] overflow-y-auto"
+              className="relative bg-brand-neutral w-full max-w-lg p-5 md:p-10 shadow-2xl border border-brand-accent/30 overflow-hidden max-h-[95vh] overflow-y-auto"
             >
               {/* Decoration */}
               <div className="absolute -top-12 -right-12 p-20 opacity-[0.03] text-brand-contrast">
@@ -777,7 +777,7 @@ export default function App() {
                       animate={{ opacity: 1, scale: 1 }}
                       className="py-12 text-center"
                     >
-                      <div className="w-16 h-16 bg-brand-primary/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <div className="w-16 h-16 bg-brand-primary/20 flex items-center justify-center mx-auto mb-6">
                         <Star className="text-brand-primary" size={32} />
                       </div>
                       <h3 className="text-2xl font-serif text-brand-contrast mb-2">{T.modal.successTitle}</h3>
@@ -793,7 +793,7 @@ export default function App() {
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           placeholder={T.modal.namePlaceholder} 
-                          className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm rounded-[8px] focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
+                          className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
                         />
                       </div>
 
@@ -808,7 +808,7 @@ export default function App() {
                             value={formData.guests}
                             onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
                             placeholder={T.modal.guestsPlaceholder} 
-                            className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm rounded-[8px] focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
+                            className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
                           />
                         </div>
                         <div className="space-y-1">
@@ -819,7 +819,7 @@ export default function App() {
                             value={formData.phone}
                             onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                             placeholder="+39 000 0000000" 
-                            className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm rounded-[8px] focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
+                            className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
                           />
                         </div>
                       </div>
@@ -832,7 +832,7 @@ export default function App() {
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                           placeholder="la-tua@email.com" 
-                          className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm rounded-[8px] focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
+                          className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all text-brand-contrast"
                         />
                       </div>
 
@@ -843,7 +843,7 @@ export default function App() {
                           value={formData.message}
                           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                           placeholder={T.modal.messagePlaceholder} 
-                          className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm rounded-[8px] focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all resize-none text-brand-contrast"
+                          className="w-full bg-brand-neutral border border-brand-accent/65 px-3 md:px-4 py-2 md:py-3 text-xs md:text-sm focus:outline-none focus:ring-1 focus:ring-brand-primary focus:border-brand-primary transition-all resize-none text-brand-contrast"
                         />
                       </div>
 
@@ -859,7 +859,7 @@ export default function App() {
                       <button 
                         type="submit"
                         disabled={isSubmitting}
-                        className="w-full bg-brand-contrast text-brand-neutral py-3 md:py-5 text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-primary hover:text-brand-contrast rounded-[8px] transition-all duration-500 mt-2 md:mt-4 shadow-lg shadow-brand-primary/10 disabled:opacity-50"
+                        className="w-full bg-brand-contrast text-brand-neutral py-3 md:py-5 text-[10px] md:text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-primary hover:text-brand-contrast transition-all duration-500 mt-2 md:mt-4 shadow-lg shadow-brand-primary/10 disabled:opacity-50"
                       >
                         {isSubmitting ? T.modal.submitting : T.modal.submit}
                       </button>
