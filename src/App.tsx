@@ -23,12 +23,12 @@ import { motion, AnimatePresence } from "motion/react";
 import { Camera, Calendar, MapPin, Music, Sunset, Star, ChevronDown, Mail, Phone, Users, X, Globe, Lock } from "lucide-react";
 
 const IMAGES = {
-  hero: "/hero.png",
-  aperitivo: "/gallery4.png",
-  poolSide: "/gallery_topright.jpg",
-  villa: "/gallery_bottomleft.jpg",
-  party: "/gallery_bottomright.jpg",
-  paese: "/gallery_topleft.jpg",
+  hero: "/hero_opt.jpg",
+  aperitivo: "/gallery4_opt.jpg",
+  poolSide: "/gallery_topright_opt.jpg",
+  villa: "/gallery_bottomleft_opt.jpg",
+  party: "/gallery_bottomright_opt.jpg",
+  paese: "/gallery_topleft_opt.jpg",
 };
 
 type Language = "IT" | "EN" | "DE";
@@ -591,11 +591,12 @@ function App() {
             className="relative"
           >
             <div className="aspect-[4/5] overflow-hidden border-[12px] border-brand-accent/40 shadow-2xl rotate-2">
-              <img 
-                src={IMAGES.aperitivo} 
-                alt="Luxury Aperitivo" 
+              <img
+                src={IMAGES.aperitivo}
+                alt="Luxury Aperitivo"
                 className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className="absolute -bottom-6 -left-6 bg-brand-primary p-8 text-brand-contrast w-52 shadow-xl border border-brand-accent/30 hidden md:block -rotate-3">
@@ -657,16 +658,16 @@ function App() {
             className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6"
           >
             <motion.div variants={fadeInUp} className="md:col-span-8 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
-              <img src={IMAGES.paese} alt="Lake Garda Village" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" referrerPolicy="no-referrer" />
+              <img src={IMAGES.paese} alt="Lake Garda Village" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" loading="lazy" decoding="async" />
             </motion.div>
             <motion.div variants={fadeInUp} className="md:col-span-4 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
-              <img src={IMAGES.poolSide} alt="Pool Side" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+              <img src={IMAGES.poolSide} alt="Pool Side" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" loading="lazy" decoding="async" />
             </motion.div>
             <motion.div variants={fadeInUp} className="md:col-span-4 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
-              <img src={IMAGES.villa} alt="Villa" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+              <img src={IMAGES.villa} alt="Villa" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" loading="lazy" decoding="async" />
             </motion.div>
             <motion.div variants={fadeInUp} className="md:col-span-8 h-[250px] md:h-[500px] overflow-hidden shadow-md border border-brand-accent/30">
-              <img src={IMAGES.party} alt="Night Atmosphere" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" />
+              <img src={IMAGES.party} alt="Night Atmosphere" className="w-full h-full object-cover hover:scale-105 transition-transform duration-1000" loading="lazy" decoding="async" />
             </motion.div>
           </motion.div>
         </div>
