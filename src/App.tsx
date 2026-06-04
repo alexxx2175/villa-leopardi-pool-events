@@ -316,7 +316,7 @@ const TRANSLATIONS = {
   }
 };
 
-export default function App() {
+function App() {
   const [lang, setLang] = useState<Language>("IT");
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -877,4 +877,217 @@ export default function App() {
       </AnimatePresence>
     </div>
   );
+}
+
+// ─── Admin Dashboard ───────────────────────────────────────────────────────────
+
+interface Booking {
+  id: string;
+  created_at: string;
+  name: string;
+  email: string | null;
+  phone: string | null;
+  guests: number;
+  amount: number;
+  stripe_session_id: string;
+  notes: string | null;
+}
+
+function AdminDashboard() {
+  const [accessToken, setAccessToken] = useState<string | null>(() =>
+    sessionStorage.getItem("admin_token")
+  );
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loginError, setLoginError] = useState<string | null>(null);
+  const [loggingIn, setLoggingIn] = useState(false);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [fetchError, setFetchError] = useState<string | null>(null);
+
+  async function handleLogin(e: React.FormEvent) {
+    e.preventDefault();
+    setLoggingIn(true);
+    setLoginError(null);
+    try {
+      const res = await fetch(`${SUPABASE_URL}/auth/v1/token?grant_type=password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "apikey": SUPABASE_ANON_KEY,
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error_description || data.msg || "Login fallito");
+      sessionStorage.setItem("admin_token", data.access_token);
+      setAccessToken(data.access_token);
+    } catch (err: unknown) {
+      setLoginError(err instanceof Error ? err.message : "Errore di login");
+    } finally {
+      setLoggingIn(false);
+    }
+  }
+
+  function handleLogout() {
+    sessionStorage.removeItem("admin_token");
+    setAccessToken(null);
+    setBookings([]);
+  }
+
+  useEffect(() => {
+    if (!accessToken) return;
+    setLoading(true);
+    setFetchError(null);
+    fetch(`${SUPABASE_URL}/rest/v1/bookings?order=created_at.desc`, {
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${accessToken}`,
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (Array.isArray(data)) setBookings(data);
+        else setFetchError(data.message || "Errore nel caricamento");
+      })
+      .catch(() => setFetchError("Errore di rete"))
+      .finally(() => setLoading(false));
+  }, [accessToken]);
+
+  const totalGuests = bookings.reduce((s, b) => s + b.guests, 0);
+  const totalRevenue = bookings.reduce((s, b) => s + Number(b.amount), 0);
+
+  if (!accessToken) {
+    return (
+      <div className="min-h-screen bg-[#f5f3f0] flex items-center justify-center px-4">
+        <div className="w-full max-w-sm">
+          <div className="text-center mb-10">
+            <VillaLeopardiLogo size="normal" />
+            <p className="text-[10px] uppercase tracking-[0.3em] text-[#8a8a80] mt-4">Area Riservata</p>
+          </div>
+          <form onSubmit={handleLogin} className="bg-white border border-[#e5e0d8] p-8 space-y-5">
+            <div>
+              <label className="block text-[9px] uppercase tracking-[0.2em] text-[#8a8a80] mb-1.5">Email</label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full border border-[#ddd8d0] bg-[#faf9f7] px-3 py-2.5 text-sm text-[#1c1c1a] focus:outline-none focus:border-[#bdb1a1]"
+              />
+            </div>
+            <div>
+              <label className="block text-[9px] uppercase tracking-[0.2em] text-[#8a8a80] mb-1.5">Password</label>
+              <input
+                type="password"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full border border-[#ddd8d0] bg-[#faf9f7] px-3 py-2.5 text-sm text-[#1c1c1a] focus:outline-none focus:border-[#bdb1a1]"
+              />
+            </div>
+            {loginError && (
+              <p className="text-red-600 text-xs">{loginError}</p>
+            )}
+            <button
+              type="submit"
+              disabled={loggingIn}
+              className="w-full bg-[#1c1c1a] text-white py-3 text-[10px] uppercase tracking-[0.3em] font-bold hover:bg-[#bdb1a1] transition-colors disabled:opacity-50"
+            >
+              {loggingIn ? "Accesso..." : "Accedi"}
+            </button>
+          </form>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-[#f5f3f0]">
+      <header className="bg-white border-b border-[#e5e0d8] px-6 py-4 flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <VLMonogram size="sm" />
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.25em] text-[#8a8a80]">Villa Leopardi</p>
+            <p className="text-[11px] font-medium text-[#1c1c1a]">Dashboard Prenotazioni</p>
+          </div>
+        </div>
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.2em] text-[#8a8a80] hover:text-[#1c1c1a] transition-colors"
+        >
+          <Lock size={12} />
+          Esci
+        </button>
+      </header>
+
+      <main className="max-w-6xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-3 gap-4 mb-8">
+          {[
+            { label: "Prenotazioni", value: bookings.length },
+            { label: "Ospiti Totali", value: totalGuests },
+            { label: "Incasso", value: `€ ${totalRevenue.toFixed(0)}` },
+          ].map((stat) => (
+            <div key={stat.label} className="bg-white border border-[#e5e0d8] p-5">
+              <p className="text-[9px] uppercase tracking-[0.2em] text-[#8a8a80] mb-1">{stat.label}</p>
+              <p className="text-2xl font-serif text-[#1c1c1a]">{stat.value}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="bg-white border border-[#e5e0d8]">
+          <div className="px-6 py-4 border-b border-[#e5e0d8]">
+            <h2 className="text-[10px] uppercase tracking-[0.25em] text-[#8a8a80]">
+              Sunset Table — 27 Giugno 2026
+            </h2>
+          </div>
+
+          {loading && (
+            <p className="text-center py-12 text-[#8a8a80] text-sm">Caricamento...</p>
+          )}
+          {fetchError && (
+            <p className="text-center py-12 text-red-500 text-sm">{fetchError}</p>
+          )}
+          {!loading && !fetchError && bookings.length === 0 && (
+            <p className="text-center py-12 text-[#8a8a80] text-sm">Nessuna prenotazione ancora.</p>
+          )}
+          {!loading && bookings.length > 0 && (
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[#f0ece6]">
+                    {["Nome", "Email", "Telefono", "Ospiti", "Importo", "Note", "Data"].map((h) => (
+                      <th key={h} className="text-left px-4 py-3 text-[9px] uppercase tracking-[0.15em] text-[#8a8a80] font-medium">{h}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {bookings.map((b, i) => (
+                    <tr key={b.id} className={`border-b border-[#f8f6f3] ${i % 2 === 0 ? "" : "bg-[#faf9f7]"}`}>
+                      <td className="px-4 py-3 font-medium text-[#1c1c1a]">{b.name}</td>
+                      <td className="px-4 py-3 text-[#5a5a54] text-xs">{b.email || "—"}</td>
+                      <td className="px-4 py-3 text-[#5a5a54] text-xs">{b.phone || "—"}</td>
+                      <td className="px-4 py-3 text-center font-medium text-[#1c1c1a]">{b.guests}</td>
+                      <td className="px-4 py-3 font-medium text-green-700">€ {Number(b.amount).toFixed(0)}</td>
+                      <td className="px-4 py-3 text-[#8a8a80] text-xs max-w-[160px] truncate">{b.notes || "—"}</td>
+                      <td className="px-4 py-3 text-[#8a8a80] text-xs whitespace-nowrap">
+                        {new Date(b.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+}
+
+// ─── Root Router ───────────────────────────────────────────────────────────────
+
+export default function Root() {
+  const isAdmin = window.location.pathname === "/admin" || window.location.pathname === "/admin/";
+  return isAdmin ? <AdminDashboard /> : <App />;
 }

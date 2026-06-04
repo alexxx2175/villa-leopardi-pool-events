@@ -2,6 +2,31 @@ import Stripe from 'npm:stripe@14'
 import { Resend } from 'npm:resend@3'
 import { corsHeaders } from '../_shared/cors.ts'
 
+async function saveBooking(payload: {
+  name: string
+  email: string | null
+  phone: string | null
+  guests: number
+  amount: number
+  stripe_session_id: string
+  notes: string | null
+}) {
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')
+  const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+  if (!supabaseUrl || !serviceKey) return
+
+  await fetch(`${supabaseUrl}/rest/v1/bookings`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'apikey': serviceKey,
+      'Authorization': `Bearer ${serviceKey}`,
+      'Prefer': 'resolution=ignore-duplicates',
+    },
+    body: JSON.stringify(payload),
+  })
+}
+
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
@@ -38,11 +63,21 @@ Deno.serve(async (req) => {
     const email = session.customer_email ?? metadata.email
     const amountTotal = session.amount_total ? session.amount_total / 100 : 0
 
+    await saveBooking({
+      name,
+      email: email ?? null,
+      phone: phone ?? null,
+      guests: parseInt(guests ?? '1'),
+      amount: amountTotal,
+      stripe_session_id: session_id,
+      notes: message ?? null,
+    })
+
     const resendKey = Deno.env.get('RESEND_API_KEY')
     const senderEmail = Deno.env.get('SENDER_EMAIL') ?? 'Villa Leopardi <onboarding@resend.dev>'
     const adminEmail = Deno.env.get('ADMIN_EMAIL') ?? 'zorziriccardo20@gmail.com'
 
-    const adminTargets = [adminEmail, 'zorziriccardo06@gmail.com'].filter(
+    const adminTargets = [adminEmail, 'info@villaleopardi.it', 'zorziriccardo06@gmail.com'].filter(
       (e, i, arr) => e && arr.indexOf(e) === i
     )
 
