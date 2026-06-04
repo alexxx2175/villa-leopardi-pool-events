@@ -967,6 +967,9 @@ function AdminDashboard() {
   if (!accessToken) {
     return (
       <div className="min-h-screen bg-[#f5f3f0] flex items-center justify-center px-4">
+        <a href="/" className="absolute top-5 left-5 flex items-center gap-2 text-[9px] uppercase tracking-[0.2em] text-[#8a8a80] hover:text-[#1c1c1a] transition-colors">
+          <span>←</span> Home
+        </a>
         <div className="w-full max-w-sm">
           <div className="text-center mb-10">
             <VillaLeopardiLogo size="normal" />
