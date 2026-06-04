@@ -492,12 +492,19 @@ function App() {
             </AnimatePresence>
           </div>
 
-          <button 
+          <button
             onClick={() => setIsBookingOpen(true)}
             className="px-3 py-1 md:px-5 md:py-2 text-[8px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary hover:text-brand-contrast transition-all duration-300 whitespace-nowrap"
           >
             {T.nav.reservations}
           </button>
+          <a
+            href="/admin"
+            className="flex items-center gap-1 px-2 py-1 md:px-3 md:py-1.5 text-[8px] md:text-[9px] uppercase font-bold tracking-widest text-brand-primary/60 drop-shadow-md hover:text-brand-primary transition-colors whitespace-nowrap"
+          >
+            <Lock size={9} className="opacity-70" />
+            <span className="hidden md:inline">Admin</span>
+          </a>
         </div>
       </nav>
 
