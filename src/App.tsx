@@ -1015,13 +1015,13 @@ function AdminDashboard() {
   return (
     <div className="min-h-screen bg-[#f5f3f0]">
       <header className="bg-white border-b border-[#e5e0d8] px-6 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
+        <a href="/" className="flex items-center gap-4 hover:opacity-70 transition-opacity">
           <VLMonogram size="sm" />
           <div>
             <p className="text-[10px] uppercase tracking-[0.25em] text-[#8a8a80]">Villa Leopardi</p>
             <p className="text-[11px] font-medium text-[#1c1c1a]">Dashboard Prenotazioni</p>
           </div>
-        </div>
+        </a>
         <button
           onClick={handleLogout}
           className="flex items-center gap-1.5 text-[9px] uppercase tracking-[0.2em] text-[#8a8a80] hover:text-[#1c1c1a] transition-colors"
