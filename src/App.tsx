@@ -961,6 +961,18 @@ function AdminDashboard() {
       .finally(() => setLoading(false));
   }, [accessToken]);
 
+  async function deleteBooking(id: string) {
+    if (!accessToken) return;
+    await fetch(`${SUPABASE_URL}/rest/v1/bookings?id=eq.${id}`, {
+      method: "DELETE",
+      headers: {
+        "apikey": SUPABASE_ANON_KEY,
+        "Authorization": `Bearer ${accessToken}`,
+      },
+    });
+    setBookings((prev) => prev.filter((b) => b.id !== id));
+  }
+
   const totalGuests = bookings.reduce((s, b) => s + b.guests, 0);
   const totalRevenue = bookings.reduce((s, b) => s + Number(b.amount), 0);
 
@@ -1066,7 +1078,7 @@ function AdminDashboard() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[#f0ece6]">
-                    {["Nome", "Email", "Telefono", "Ospiti", "Importo", "Note", "Data"].map((h) => (
+                    {["Nome", "Email", "Telefono", "Ospiti", "Importo", "Note", "Data", ""].map((h) => (
                       <th key={h} className="text-left px-4 py-3 text-[9px] uppercase tracking-[0.15em] text-[#8a8a80] font-medium">{h}</th>
                     ))}
                   </tr>
@@ -1082,6 +1094,14 @@ function AdminDashboard() {
                       <td className="px-4 py-3 text-[#8a8a80] text-xs max-w-[160px] truncate">{b.notes || "—"}</td>
                       <td className="px-4 py-3 text-[#8a8a80] text-xs whitespace-nowrap">
                         {new Date(b.created_at).toLocaleDateString("it-IT", { day: "2-digit", month: "short", hour: "2-digit", minute: "2-digit" })}
+                      </td>
+                      <td className="px-4 py-3">
+                        <button
+                          onClick={() => { if (window.confirm(`Eliminare la prenotazione di ${b.name}?`)) deleteBooking(b.id); }}
+                          className="flex items-center gap-1 text-[9px] uppercase tracking-[0.1em] text-red-400 hover:text-red-600 transition-colors"
+                        >
+                          <X size={12} /> Elimina
+                        </button>
                       </td>
                     </tr>
                   ))}
