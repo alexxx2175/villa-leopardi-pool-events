@@ -31,6 +31,9 @@ const IMAGES = {
   paese: "/gallery_topleft_opt.jpg",
 };
 
+// Evento esaurito: metti a `false` per riaprire le vendite e mostrare di nuovo i pulsanti di prenotazione.
+const SOLD_OUT = true;
+
 type Language = "IT" | "EN" | "DE";
 
 function VillaLeopardiLogo({ isDarkBg = false, size = "normal" }: { isDarkBg?: boolean, size?: "normal" | "large" | "footer" }) {
@@ -129,6 +132,7 @@ const TRANSLATIONS = {
         { label: "Capacità", value: "Max 50 Posti" }
       ],
       note: "Posti limitati. Prenotazioni su villaleopardi.it per assicurarti un tavolo al tramonto.",
+      soldOutNote: "Tutti i posti per la serata del 27 Giugno 2026 sono esauriti. Grazie a tutti!",
       btnPrimary: "Prenota Ora",
       btnSecondary: "WhatsApp Direct"
     },
@@ -206,6 +210,7 @@ const TRANSLATIONS = {
         { label: "Capacity", value: "Max 50 Guests" }
       ],
       note: "Limited slots. Book on villaleopardi.it to ensure a sunset table.",
+      soldOutNote: "All spots for the evening of June 27th, 2026 are sold out. Thank you!",
       btnPrimary: "Book Now",
       btnSecondary: "WhatsApp Direct"
     },
@@ -283,6 +288,7 @@ const TRANSLATIONS = {
         { label: "Kapazität", value: "Max. 50 Plätze" }
       ],
       note: "Begrenzte Plätze. Buchen Sie auf villaleopardi.it, um sich einen Tisch bei Sonnenuntergang zu sichern.",
+      soldOutNote: "Alle Plätze für den Abend des 27. Juni 2026 sind ausverkauft. Vielen Dank!",
       btnPrimary: "Jetzt Buchen",
       btnSecondary: "WhatsApp Direct"
     },
@@ -492,12 +498,18 @@ function App() {
             </AnimatePresence>
           </div>
 
-          <button
-            onClick={() => setIsBookingOpen(true)}
-            className="px-3 py-1 md:px-5 md:py-2 text-[8px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary hover:text-brand-contrast transition-all duration-300 whitespace-nowrap"
-          >
-            {T.nav.reservations}
-          </button>
+          {SOLD_OUT ? (
+            <span className="px-3 py-1 md:px-5 md:py-2 text-[8px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary/70 border border-brand-primary/20 whitespace-nowrap cursor-default select-none">
+              Sold Out
+            </span>
+          ) : (
+            <button
+              onClick={() => setIsBookingOpen(true)}
+              className="px-3 py-1 md:px-5 md:py-2 text-[8px] md:text-[10px] uppercase font-bold tracking-widest text-brand-primary drop-shadow-md border border-brand-primary/30 hover:bg-brand-primary hover:text-brand-contrast transition-all duration-300 whitespace-nowrap"
+            >
+              {T.nav.reservations}
+            </button>
+          )}
           <a
             href="/admin"
             className="flex items-center gap-1 px-2 py-1 md:px-3 md:py-1.5 text-[8px] md:text-[9px] uppercase font-bold tracking-widest text-brand-primary/60 drop-shadow-md hover:text-brand-primary transition-colors whitespace-nowrap"
@@ -699,16 +711,22 @@ function App() {
             </div>
 
             <p className="text-sm text-brand-contrast/70 mb-10 tracking-[0.1em] uppercase max-w-lg mx-auto font-light">
-              {T.bookingSection.note}
+              {SOLD_OUT ? T.bookingSection.soldOutNote : T.bookingSection.note}
             </p>
 
             <div className="flex justify-center items-center">
-              <button 
-                onClick={() => setIsBookingOpen(true)}
-                className="bg-brand-contrast text-brand-neutral px-12 py-5 text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-primary hover:text-brand-contrast transition-all duration-500 shadow-xl w-full sm:w-auto"
-              >
-                {T.bookingSection.btnPrimary}
-              </button>
+              {SOLD_OUT ? (
+                <div className="border-2 border-brand-contrast/80 px-12 py-5 w-full sm:w-auto text-center cursor-default select-none">
+                  <span className="text-xl md:text-2xl font-serif text-brand-contrast tracking-[0.3em] uppercase">Sold Out</span>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setIsBookingOpen(true)}
+                  className="bg-brand-contrast text-brand-neutral px-12 py-5 text-xs uppercase tracking-[0.3em] font-bold hover:bg-brand-primary hover:text-brand-contrast transition-all duration-500 shadow-xl w-full sm:w-auto"
+                >
+                  {T.bookingSection.btnPrimary}
+                </button>
+              )}
             </div>
           </motion.div>
         </div>
