@@ -32,7 +32,7 @@ const IMAGES = {
 };
 
 // Evento esaurito: metti a `false` per riaprire le vendite e mostrare di nuovo i pulsanti di prenotazione.
-const SOLD_OUT = true;
+const SOLD_OUT = false;
 
 type Language = "IT" | "EN" | "DE";
 
